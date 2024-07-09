@@ -2,6 +2,7 @@
 
 ### Tools that needs to be installed:
 - VS Code (https://code.visualstudio.com/)
+- Node (https://nodejs.org/en/download)
   
 ### Tech Stack
 - React/Vite - front-end framework.
