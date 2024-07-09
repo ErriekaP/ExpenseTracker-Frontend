@@ -14,7 +14,7 @@
 ### Setting up your application
 1. Clone the Repository:
 ```bash
-git clone
+git clone https://github.com/ErriekaP/ExpenseTracker-Frontend.git
 ```
 2. Install the libraries with this command:
 ```bash
