@@ -5,12 +5,16 @@ import Button from "../atom/Button";
 import TotalExpenseSection from "../atom/TotalExpenseSection";
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import YearlyExpenses from "./YearlyExpenses";
 
 // Extend dayjs with the weekOfYear plugin to handle week calculations
 dayjs.extend(weekOfYear);
 
 const Expenses = ({ expenses, setExpenses }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState("");
+  const [searchedYear, setSearchedYear] = useState("");
+  const [showYearly, setShowYearly] = useState(false);
 
   // Fetch expenses from API
   useEffect(() => {
@@ -39,8 +43,19 @@ const Expenses = ({ expenses, setExpenses }) => {
       );
     }
 
+    if (selectedWeek !== "" && searchedYear !== "") {
+      filtered = filtered.filter((expense) => {
+        const expenseWeek = dayjs(expense.date).week();
+        const expenseYear = dayjs(expense.date).year();
+        return (
+          expenseWeek === parseInt(selectedWeek) &&
+          expenseYear === parseInt(searchedYear)
+        );
+      });
+    }
+
     return filtered;
-  }, [expenses, searchTerm]);
+  }, [expenses, searchTerm, selectedWeek, searchedYear]);
 
   // Memoized total expenses based on filtered expenses
   const totalExpensesAmount = useMemo(() => {
@@ -49,6 +64,17 @@ const Expenses = ({ expenses, setExpenses }) => {
       0
     );
   }, [filteredExpenses]);
+
+  // Function to handle clicking the Weekly button
+  const handleWeeklyButtonClick = () => {
+    setShowYearly(true); // Show YearlyExpenses
+  };
+
+  // Function to handle clicking the Weekly button
+  const handleAllButtonClick = () => {
+    setShowYearly(false);
+    setSelectedWeek("");
+  };
 
   return (
     <div className="flex flex-col flex-grow gap-4 pt-5 border-2 border-transparent">
@@ -80,12 +106,19 @@ const Expenses = ({ expenses, setExpenses }) => {
 
         {/* Buttons Container */}
         <div className="flex flex-col md:flex-row flex-grow md:justify-end flex-wrap gap-2 md:gap-1">
-          <Button>Weekly</Button>
-          <Button>All</Button>
+          <Button onClick={handleWeeklyButtonClick}>Weekly</Button>
+          <Button onClick={handleAllButtonClick}>All</Button>
         </div>
       </div>
       {/* Total Expense Section */}
-      <TotalExpenseSection totalExpenses={totalExpensesAmount} />{" "}
+      <TotalExpenseSection totalExpenses={totalExpensesAmount} />
+      {/* Render YearlyExpenses if showYearly is true */}
+      {showYearly && (
+        <YearlyExpenses
+          setSelectedWeek={setSelectedWeek}
+          setSearchedYear={setSearchedYear}
+        />
+      )}
       {/* Filtered Expense Cards */}
       <div className="flex flex-col mt-2">
         <ExpenseCard expenses={filteredExpenses} />
