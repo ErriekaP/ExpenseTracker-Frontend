@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AddButton = ({ expenses, setExpenses }) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -21,6 +22,7 @@ const AddButton = ({ expenses, setExpenses }) => {
         setDescription("");
         setAmount("");
         setDate("");
+        toast.success("Successfully added expense!");
       })
       .catch((error) => {
         console.error("There was an error adding the expense!", error);
