@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Navbar from "../components/organism/Navbar";
+import Expenses from "../components/organism/Expenses";
+import AddModal from "../components/organism/AddModal";
 
 const Dashboard = () => {
   const [expenses, setExpenses] = useState([]);
@@ -11,14 +13,15 @@ const Dashboard = () => {
         <div className="flex w-full items-center mb-8">
           <p className="text-2xl font-bold">ALL EXPENSES</p>
           <div className="flex-grow mx-2 sm:mx-4 md:mx-8 lg:mx-16 xl:mx-32"></div>
+          <AddModal expenses={expenses} setExpenses={setExpenses} />
         </div>
         <div className="flex flex-col md:flex-row w-full flex-grow">
-          {/* <div className="w-full md:w-auto flex-shrink-0">
-            <YearlyExpenses />
-          </div> */}
           <div className="hidden md:block divider divider-horizontal mx-4"></div>
           <div className="md:hidden divider divider-vertical my-4"></div>
-          <div className="flex-grow"></div>
+          <div className="flex-grow">
+            {" "}
+            <Expenses expenses={expenses} setExpenses={setExpenses} />
+          </div>
         </div>
       </div>
     </>
