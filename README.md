@@ -1,7 +1,6 @@
 # React + Vite
 
 ### Tools that needs to be installed:
-- Node (https://nodejs.org/en/download)
 - VS Code (https://code.visualstudio.com/)
   
 ### Tech Stack
