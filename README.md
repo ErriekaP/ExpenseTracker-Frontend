@@ -16,6 +16,10 @@
 ```bash
 git clone
 ```
+2. Install the libraries with this command:
+```bash
+npm i
+```
 ### Running your application
 1. Run the NextJS frontend
 ```bash
