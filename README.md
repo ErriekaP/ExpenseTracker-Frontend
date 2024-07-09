@@ -26,7 +26,7 @@ npm i
 ```bash
 npm run dev
 ```
-2. Access the website
+2. Access locally.
 ```bash   
 http://localhost:3001/
 ```
